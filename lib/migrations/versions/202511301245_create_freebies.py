@@ -6,7 +6,7 @@ down_revision = '5f72c58bf48c'
 branch_labels = None
 depends_on = None
 
-def upgrade()v-> None:
+def upgrade()-> None:
     op.create_table(
         'freebies',
         sa.Column('id', sa.Integer(), primary_key=True),
@@ -15,3 +15,6 @@ def upgrade()v-> None:
         sa.Column('company_id', sa.Integer(), sa.ForeignKey('companies.id'), nullable=False),
         sa.Column('dev_id', sa.Integer(), sa.ForeignKey('devs.id'), nullable=False)
     )
+
+def downgrade():
+    op.drop_table('freebies')    
