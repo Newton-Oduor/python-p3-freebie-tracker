@@ -16,6 +16,16 @@ class Company(Base):
     name = Column(String())
     founding_year = Column(Integer())
 
+    @property
+    def devs(self):
+        return list({freebie.dev for freebie in self.freebies})
+    
+    def give_freebie(self, dev, item_name, value, session):
+        new_freebie = Freebie(item_name=item_name, value=value, company=self, dev=dev)
+        session.add(new_freebie)
+        session.commit()
+        return new_freebie
+
     def __repr__(self):
         return f'<Company {self.name}>'
 
@@ -24,6 +34,21 @@ class Dev(Base):
 
     id = Column(Integer(), primary_key=True)
     name= Column(String())
+
+    @property
+    def companies(self):
+        return list({freebie.company for freebie in self.freebies})
+    
+    def received_one(self, item_name):
+        return any(freebie.item_name == item_name for freebie in self.freebies)
+    
+    def give_away(self, other_dev, freebie, session):
+        if freebie in self.freebies:
+            freebie.dev = other_dev
+            session.add(freebie)
+            session.commit()
+            return True
+        return False
 
     def __repr__(self):
         return f'<Dev {self.name}>'
@@ -41,5 +66,8 @@ class Freebie(Base):
     company = relationship('Company', backref=backref('freebies', cascade='all, delete-orphan'))
     dev = relationship('Dev', backref=backref('freebies', cascade='all, delete-orphan'))
 
-    def __repr__(self):
+    def print_details(self):
         return f'{self.dev.name} owns a {self.item_name} from {self.company.name}'
+
+    def __repr__(self):
+        return self.print_details()
