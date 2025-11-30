@@ -27,3 +27,19 @@ class Dev(Base):
 
     def __repr__(self):
         return f'<Dev {self.name}>'
+    
+class Freebie(Base):
+    __tablename__ = 'freebies'
+
+    id = Column(Integer, primary_key=True)
+    item_name = Column(String, nullable=False)
+    value = Column(Integer, nullable=False)
+
+    company_id = Column(Integer, ForeignKey('companies.id'), nullable=False)
+    dev_id = Column(Integer, ForeignKey('devs.id'), nullable=False)
+
+    company = relationship('Company', backref=backref('freebies', cascade='all, delete-orphan'))
+    dev = relationship('Dev', backref=backref('freebies', cascade='all, delete-orphan'))
+
+    def __repr__(self):
+        return f'{self.dev.name} owns a {self.item_name} from {self.company.name}'
