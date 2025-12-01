@@ -25,6 +25,10 @@ class Company(Base):
         session.add(new_freebie)
         session.commit()
         return new_freebie
+    
+    @classmethod
+    def oldest_company(cls, session):
+        return session.query(cls).order_by(cls.founding_year).first()
 
     def __repr__(self):
         return f'<Company {self.name}>'
