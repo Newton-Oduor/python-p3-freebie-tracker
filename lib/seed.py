@@ -9,9 +9,9 @@ from models import Company, Dev, Freebie
 
 # Create Companies
 
-facebook = Company(name="Facebook", founding_year=2001)
-openAI = Company(name="OpenAI", founding_year=2005)
-andela = Company(name="Andela", founding_year=1996)
+google = Company(name="Google", founding_year=2001)
+bing = Company(name="Bing", founding_year=2005)
+microsoft = Company(name="Microsoft", founding_year=1996)
 
 
 # Create Devs
@@ -24,30 +24,30 @@ gitau = Dev(name="Gitau")
 # Create Freebies
 
 freebie1 = Freebie(
-    item_name="Mouse Pad",
-    value=15,
-    company=openAI,
+    item_name="Laptop Bag",
+    value=200,
+    company=bing,
     dev=kevin
 )
 
 freebie2 = Freebie(
-    item_name="T-Shirt",
-    value=30,
-    company=facebook,
+    item_name="Sweater",
+    value=150,
+    company=google,
     dev=gitau
 )
 
 freebie3 = Freebie(
-    item_name="Coffee Mug",
-    value=25,
-    company=andela,
+    item_name="Software",
+    value=350,
+    company=microsoft,
     dev=tom
 )
 
 freebie4 = Freebie(
-    item_name="Gaming Set",
-    value=300,
-    company=openAI,
+    item_name="Energy drink",
+    value=50,
+    company=bing,
     dev=gitau
 )
 
@@ -59,7 +59,7 @@ session = Session()
 
 # Save to database
 session.add_all([
-    facebook, openAI, andela,
+    google, bing, microsoft,
     kevin, gitau, tom,
     freebie1, freebie2, freebie3, freebie4
 ])
