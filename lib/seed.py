@@ -9,9 +9,9 @@ from models import Company, Dev, Freebie
 
 # Create Companies
 
-google = Company(name="Google", founding_year=2001)
-bing = Company(name="Bing", founding_year=2005)
-microsoft = Company(name="Microsoft", founding_year=1996)
+google = Company(name="Google", founding_year=2003)
+bing = Company(name="Bing", founding_year=2010)
+microsoft = Company(name="Microsoft", founding_year=1990)
 
 
 # Create Devs
